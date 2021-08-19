@@ -40,12 +40,15 @@ if 1
     autocmd BufNewFile .gitignore 0r $HOME/.vim/template/gitignore.txt
 
     " quickrun
-    let g:quickrun_config={'python': {'command': 'python3'}, '*': {'opener': 'split'}}
+    let g:quickrun_config = {'python': {'command': 'python3'}, '*': {'opener': 'split'}}
     if !hasmapto('<Plug>(quickrun)')
     \  && (!exists('g:quickrun_no_default_key_mappings')
     \      || !g:quickrun_no_default_key_mappings)
       silent! map <unique> <Leader>r <Plug>(quickrun)
     endif
+
+    " lsp
+    let g:lsp_diagnostics_echo_cursor = 1
     nnoremap n nzz
     nnoremap N Nzz
     nnoremap * *zz
