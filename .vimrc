@@ -1,29 +1,27 @@
 if 1
+    set completeopt=menuone,noinsert
+    call plug#begin('~/.vim/plugged')
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'thinca/vim-quickrun'
+    Plug 'itchyny/lightline.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    call plug#end()
+    noremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+    cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
     syntax on
     set t_Co=256
     set nocompatible
     colorscheme molokai
 
-    filetype off
-    set rtp+=~/.vim/bundle/Vundle.vim/
-    call vundle#begin()
-    Plugin 'VundleVim/Vundle.vim'
-    Plugin 'thinca/vim-quickrun'
-    Plugin 'prabirshrestha/vim-lsp'
-    Plugin 'mattn/vim-lsp-settings'
-    Plugin 'prabirshrestha/asyncomplete.vim'
-    Plugin 'prabirshrestha/asyncomplete-lsp.vim'
-    Plugin 'itchyny/lightline.vim'
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'tpope/vim-surround'
-    Plugin 'mattn/emmet-vim'
-    call vundle#end()
     filetype plugin indent on
 
     set tabstop=4
     set shiftwidth=4
     set list
-    set autoindent
+    set expandtab
+    set noautoindent
     set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<
     set backspace=start,eol,indent
     set expandtab
@@ -34,6 +32,11 @@ if 1
     autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
     autocmd FileType yaml setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
     autocmd FileType html setl tabstop=8 expandtab shiftwidth=2 softtabstop=2 autoindent
+    autocmd FileType htmldjango setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType vue setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType typescript setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType json setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
     autocmd FileType css setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
     autocmd BufNewFile *.py 1r $HOME/.vim/template/python.txt
     autocmd BufNewFile index.html 0r $HOME/.vim/template/html.txt
@@ -41,6 +44,9 @@ if 1
 
     " quickrun
     let g:quickrun_config = {'python': {'command': 'python3'}, '*': {'opener': 'split'}}
+    set ruler
+    set wildmenu
+    set laststatus=2
     if !hasmapto('<Plug>(quickrun)')
     \  && (!exists('g:quickrun_no_default_key_mappings')
     \      || !g:quickrun_no_default_key_mappings)
@@ -57,6 +63,11 @@ if 1
     nnoremap g# g#zz
     nnoremap j gj
     nnoremap k gk
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
+    nnoremap <leader>r :QuickRun<CR>
     if &term =~ "xterm"
         let &t_ti .= "\e[?2004h"
         let &t_te .= "\e[?2004l"
